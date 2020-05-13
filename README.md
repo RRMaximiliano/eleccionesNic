@@ -150,11 +150,13 @@ Para citar el paquete, use lo siguiente:
 citation("eleccionesNic")
 #> Warning in citation("eleccionesNic"): no date field in DESCRIPTION file of
 #> package 'eleccionesNic'
+#> Warning in citation("eleccionesNic"): could not determine year for
+#> 'eleccionesNic' from package DESCRIPTION file
 #> 
 #> To cite package 'eleccionesNic' in publications use:
 #> 
-#>   Rony Rodriguez-Ramirez (2020). eleccionesNic: Elecciones
-#>   presidenciales en Nicaragua 1990-2006. R package version 0.0.0.9000.
+#>   Rony Rodriguez-Ramirez (NA). eleccionesNic: Elecciones presidenciales
+#>   en Nicaragua 1990-2006. R package version 0.0.0.9000.
 #>   https://github.com/rrmaximiliano/eleccionesNic
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -162,7 +164,6 @@ citation("eleccionesNic")
 #>   @Manual{,
 #>     title = {eleccionesNic: Elecciones presidenciales en Nicaragua 1990-2006},
 #>     author = {Rony Rodriguez-Ramirez},
-#>     year = {2020},
 #>     note = {R package version 0.0.0.9000},
 #>     url = {https://github.com/rrmaximiliano/eleccionesNic},
 #>   }
