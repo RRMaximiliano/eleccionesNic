@@ -5,8 +5,8 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.com/kjhealy/congress.svg?branch=master)](https://travis-ci.com/kjhealy/congress)
+[![R build
+status](https://github.com/rrmaximiliano/eleccionesNic/workflows/R-CMD-check/badge.svg)](https://github.com/rrmaximiliano/eleccionesNic/actions)
 <!-- badges: end -->
 
 `eleccionesNic` es una base de datos que contiene información sobre las
@@ -46,7 +46,7 @@ library(tidyverse)
 #> x dplyr::lag()    masks stats::lag()
 ```
 
-Load the data:
+Cargar la base:
 
 ``` r
 library(eleccionesNic)

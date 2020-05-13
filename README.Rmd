@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # Elecciones presidenciales en Nicaragua
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.com/kjhealy/congress.svg?branch=master)](https://travis-ci.com/kjhealy/congress)
+[![R build status](https://github.com/rrmaximiliano/eleccionesNic/workflows/R-CMD-check/badge.svg)](https://github.com/rrmaximiliano/eleccionesNic/actions)
 <!-- badges: end -->
 
 `eleccionesNic` es una base de datos que contiene información sobre las elecciones presidenciales en Nicaragua desde el año 1990 al 2006. Cada fila representa año y departamento.
