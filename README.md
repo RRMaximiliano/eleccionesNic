@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# congress
+# Elecciones presidenciales en Nicaragua
 
 <!-- badges: start -->
 
@@ -9,95 +9,39 @@
 status](https://travis-ci.com/kjhealy/congress.svg?branch=master)](https://travis-ci.com/kjhealy/congress)
 <!-- badges: end -->
 
-`congress` is a dataset of individuals who have served in the US
-Congress since 1945. Each row is an individual’s spell in a
-Congressional term in some elected office: US Representative, US
-Senator, President, or Vice-President.
+`eleccionesNic` es una base de datos que contiene información sobre las
+elecciones presidenciales en Nicaragua desde el año 1990 al 2006. Cada
+fila representa año y departamento.
 
-## Installation
+## Instalación
 
-The `congress` package contains term-level data on every US
-Congressional Representative (House, Senate, Presidency,
-Vice-Presidency) between 1945 (the 79th Congress) and 2019 (the 116th
-Congress). The data includes information on the representative’s
-demographic characteristics and political affiliation.
+El paquete `eleccionesNic` contiene datos al nivel de departamento. Los
+datos incluyen información del total de votos, votos válidos, juntas
+receptoras de votos, partidos políticos, etc.
 
-## Installation
+### Instalar desde GitHub
 
-`congress` is a data package. The relatively large size of the data in
-the package means it is not suitable for hosting on
-[CRAN](https://cran.r-project.org/), the core R package repository.
-There are two ways to install it.
-
-### Install direct from GitHub
-
-You can install the beta version of congress from
-[GitHub](https://github.com/kjhealy/congress) with:
+Puedes instalar la versión beta de `eleccionesNic` desde
+[GitHub](https://github.com/rrmaximiliano/eleccionesNic):
 
 ``` r
-devtools::install_github("kjhealy/congress")
+devtools::install_github("rrmaximiliano/eleccionesNic")
 ```
 
-### Installation using `drat`
+## Cargando los datos
 
-While using `install_github()` works just fine, it would be nicer to be
-able to just type `install.packages("congress")` or
-`update.packages("congress")` in the ordinary way. We can do this using
-Dirk Eddelbuettel’s
-[drat](http://eddelbuettel.github.io/drat/DratForPackageUsers.html)
-package. Drat provides a convenient way to make R aware of package
-repositories other than CRAN.
-
-First, install `drat`:
-
-``` r
-if (!require("drat")) {
-    install.packages("drat")
-    library("drat")
-}
-```
-
-Then use `drat` to tell R about the repository where `congress` is
-hosted:
-
-``` r
-drat::addRepo("kjhealy")
-```
-
-You can now install `congress`:
-
-``` r
-install.packages("congress")
-```
-
-To ensure that the `congress` repository is always available, you can
-add the following line to your `.Rprofile` or `.Rprofile.site` file:
-
-``` r
-drat::addRepo("kjhealy")
-```
-
-With that in place you’ll be able to do `install.packages("congress")`
-or `update.packages("congress")` and have everything work as you’d
-expect.
-
-Note that the drat repository only contains data packages that are not
-on CRAN, so you will never be in danger of grabbing the wrong version of
-any other package.
-
-## Loading the data
-
-The data is stored as a tibble and works best with (but does not
-strictly require) the [tidyverse](http://tidyverse.org/) libraries.
+Los datos se almacenan como un tibble y funcionan mejor con (pero no
+requieren estrictamente) las bibliotecas
+[tidyverse](http://tidyverse.org/).
 
 ``` r
 library(tidyverse)
-#> -- Attaching packages ----------------------------------------------------------- tidyverse 1.3.0 --
+#> -- Attaching packages ------------------------------------------------------------------------ tidyverse 1.3.0 --
 #> v ggplot2 3.3.0     v purrr   0.3.4
 #> v tibble  3.0.0     v dplyr   0.8.5
 #> v tidyr   1.0.2     v stringr 1.4.0
 #> v readr   1.3.1     v forcats 0.5.0
-#> -- Conflicts -------------------------------------------------------------- tidyverse_conflicts() --
+#> -- Conflicts --------------------------------------------------------------------------- tidyverse_conflicts() --
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 ```
@@ -105,30 +49,121 @@ library(tidyverse)
 Load the data:
 
 ``` r
-library(congress)
+library(eleccionesNic)
 ```
 
-To look at the tibble that contains the data, do this:
+Para ver el tibble que contiene los datos, haga esto:
 
 ``` r
-congress
-#> # A tibble: 20,598 x 32
-#>    congress   pid last  first middle suffix born       death      sex   position
-#>       <dbl> <dbl> <chr> <chr> <chr>  <chr>  <date>     <date>     <chr> <chr>   
-#>  1       79     1 Aber~ Thom~ Gerst~ <NA>   1903-05-16 1953-01-23 M     U.S. Re~
-#>  2       79     2 Adams Sher~ <NA>   <NA>   1899-01-08 1986-10-27 M     U.S. Re~
-#>  3       79     3 Aiken Geor~ David  <NA>   1892-08-20 1984-11-19 M     U.S. Se~
-#>  4       79     4 Allen Asa   Leona~ <NA>   1891-01-05 1969-01-05 M     U.S. Re~
-#>  5       79     5 Allen Leo   Elwood <NA>   1898-10-05 1973-01-19 M     U.S. Re~
-#>  6       79     6 Almo~ J.    Linds~ Jr.    1898-06-15 1986-04-14 M     U.S. Re~
-#>  7       79     7 Ande~ Herm~ Carl   <NA>   1897-01-27 1978-07-26 M     U.S. Re~
-#>  8       79     8 Ande~ Clin~ Presba <NA>   1895-10-23 1975-11-11 M     U.S. Re~
-#>  9       79     9 Ande~ John  Zuing~ <NA>   1904-03-22 1981-02-09 M     U.S. Re~
-#> 10       79    10 Andr~ Augu~ Herman <NA>   1890-10-11 1958-01-14 M     U.S. Re~
-#> # ... with 20,588 more rows, and 22 more variables: party <chr>, state <chr>,
-#> #   district <chr>, start <date>, end <chr>, religion <chr>, race <chr>,
-#> #   education <chr>, occ1 <chr>, occ2 <chr>, occ3 <chr>, mil1 <chr>,
-#> #   mil2 <chr>, mil3 <chr>, start_year <date>, end_year <date>,
-#> #   start_age <int>, poc <chr>, days_old <dbl>, entry_age <int>,
-#> #   end_career <date>, yr_fac <fct>
+nic_elecciones %>% tibble()
+#> # A tibble: 72 x 35
+#>     year departamento municipios   jrv inscritos total_votos total_porcentaje
+#>    <int> <fct>             <int> <int>     <int>       <int>            <dbl>
+#>  1  1990 Nueva Segov~         11   127     49842       44410            0.891
+#>  2  1990 Madriz                9   122     42847       37658            0.879
+#>  3  1990 Esteli                6   212     76441       68155            0.892
+#>  4  1990 Chinandega           13   333    145519      123366            0.848
+#>  5  1990 Leon                 10   374    149131      128948            0.865
+#>  6  1990 Managua               7  1096    462771      408987            0.884
+#>  7  1990 Masaya                9   252    102294       93797            0.917
+#>  8  1990 Carazo                8   190     66627       58341            0.876
+#>  9  1990 Granada               4   203     68792       62014            0.902
+#> 10  1990 Rivas                10   215     62600       56146            0.897
+#> # ... with 62 more rows, and 28 more variables: nulos <int>,
+#> #   nulos_porcentaje <dbl>, votos_validos <int>, validos_porcentaje <dbl>,
+#> #   uno <int>, psoc <int>, pliun <int>, prt <int>, fsln <int>, map_ml <int>,
+#> #   psc <int>, puca <int>, pcdn <int>, mur <int>, al <int>, pcn <int>,
+#> #   ccn <int>, pronal <int>, mrs <int>, prn <int>, anc <int>, u <int>,
+#> #   pli <int>, uno_96 <int>, plc <int>, ac <int>, aln <int>, otros <int>
+```
+
+La base de datos continue las siguientes columnas (variables):
+
+  - year
+  - departamento
+  - municipios
+  - jrv: Junto receptora de votos
+  - inscritos
+  - total\_votos
+  - total\_porcentaje
+  - nulos
+  - nulos\_porcentaje
+  - votos\_validos
+  - validos\_porcentaje
+  - Partidos políticos
+      - uno: Unión Nacional Opositora
+      - psoc: Partido Social Cristiano
+      - pliun: Partido Liberal Independiente de Unidad Nacional
+      - prt: Partido Revolucionario de los Trabajadores
+      - fsl: Frente Sandinista de Liberación Nacional
+      - map\_ml: Movimiento de Acción Popular Marxista-Leninista
+      - psc: Partido Social Conservatismo
+      - puca: Partido Unionista Centroamericano
+      - pcdn: Partido Comunista de Nicaragua
+      - mur: Movimiento de Unidad Revolucionaria
+      - al: Alianza Liberal
+      - pcn: Partido Conservador de Nicaragua  
+      - ccn: Camino Cristiano Nicaragüense
+      - pronal: Proyecto Nacional
+      - mrs: Movimiento Renovador Sandinista
+      - prn: Partido Resistencia Nicaragüense
+      - anc: Acción Nacional Conservadora
+      - u: Alianza Unidad
+      - pli: Partido Liberal Independiente
+      - uno\_96: Alianza UNO-96
+      - plc: Partido Liberal Constitucionalista
+      - ac: Alternativa por el Cambio
+      - aln: Alianza Liberal Nicaragüense
+
+## Caveats
+
+Hay varios caveats en esta base de datos preliminar.
+
+Primero, para las elecciones de 1990 y 1996, la contabilización de votos
+se registró como:
+
+1.  Inscritos
+2.  Total Votos
+3.  Nulos
+4.  Votos válidos
+
+En el caso de las elecciones de 2001 y 2006, solo se encuentra
+información para las siguientes variables:
+
+1.  Inscritos
+2.  Votos válidos
+
+Esto es debido a la forma en que fueron públicados los resultados por
+parte del Consejo Supremo Electoral de Nicaragua.
+
+## Comentarios y sugerencias
+
+Para realizar comentarios o sugerencias sobre este paquetes puedes abrir
+un issue en este repositorio:
+`https://github.com/rrmaximiliano/eleccionesNic/issues`
+
+## Citar el paquete `eleccionesNic`
+
+Para citar el paquete, use lo siguiente:
+
+``` r
+citation("eleccionesNic")
+#> Warning in citation("eleccionesNic"): no date field in DESCRIPTION file of
+#> package 'eleccionesNic'
+#> 
+#> To cite package 'eleccionesNic' in publications use:
+#> 
+#>   Rony Rodriguez-Ramirez (2020). eleccionesNic: Elecciones
+#>   presidenciales en Nicaragua 1990-2006. R package version 0.0.0.9000.
+#>   https://github.com/rrmaximiliano/eleccionesNic
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {eleccionesNic: Elecciones presidenciales en Nicaragua 1990-2006},
+#>     author = {Rony Rodriguez-Ramirez},
+#>     year = {2020},
+#>     note = {R package version 0.0.0.9000},
+#>     url = {https://github.com/rrmaximiliano/eleccionesNic},
+#>   }
 ```

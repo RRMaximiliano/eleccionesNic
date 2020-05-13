@@ -13,83 +13,111 @@ knitr::opts_chunk$set(
 )
 ```
 
-# congress
+# Elecciones presidenciales en Nicaragua
 
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.com/kjhealy/congress.svg?branch=master)](https://travis-ci.com/kjhealy/congress)
 <!-- badges: end -->
 
-`congress` is a dataset of individuals who have served in the US Congress since 1945. Each row is an individual's spell in a Congressional term in some elected office: US Representative, US Senator, President, or Vice-President.
+`eleccionesNic` es una base de datos que contiene información sobre las elecciones presidenciales en Nicaragua desde el año 1990 al 2006. Cada fila representa año y departamento.
 
-## Installation
+## Instalación
 
+El paquete `eleccionesNic` contiene datos al nivel de departamento. Los datos incluyen información del total de votos, votos válidos, juntas receptoras de votos, partidos políticos, etc.
 
-The `congress` package contains term-level data on every US Congressional Representative (House, Senate, Presidency, Vice-Presidency) between 1945 (the 79th Congress) and 2019 (the 116th Congress). The data includes information on the representative's demographic characteristics and political affiliation.
+### Instalar desde GitHub
 
+Puedes instalar la versión beta de `eleccionesNic` desde [GitHub](https://github.com/rrmaximiliano/eleccionesNic):
 
-## Installation
-
-`congress` is a data package. The relatively large size of the data in the package means it is not suitable for hosting on [CRAN](https://cran.r-project.org/), the core R package repository. There are two ways to install it.
-
-### Install direct from GitHub
-
-You can install the beta version of congress from [GitHub](https://github.com/kjhealy/congress) with:
-
-``` r
-devtools::install_github("kjhealy/congress")
+```{r install, eval=FALSE}
+devtools::install_github("rrmaximiliano/eleccionesNic")
 ```
 
-### Installation using `drat`
+## Cargando los datos
 
-While using `install_github()` works just fine, it would be nicer to be able to just type `install.packages("congress")` or `update.packages("congress")` in the ordinary way. We can do this using Dirk Eddelbuettel's [drat](http://eddelbuettel.github.io/drat/DratForPackageUsers.html) package. Drat provides a convenient way to make R aware of package repositories other than CRAN.
-
-First, install `drat`:
-
-```{r drat, eval = FALSE}
-if (!require("drat")) {
-    install.packages("drat")
-    library("drat")
-}
-```
-
-Then use `drat` to tell R about the repository where `congress` is hosted:
-
-```{r drat-congress}
-drat::addRepo("kjhealy")
-```
-
-You can now install `congress`:
-
-```{r congress-drat, eval = FALSE}
-install.packages("congress")
-```
-
-To ensure that the `congress` repository is always available, you can add the following line to your `.Rprofile` or `.Rprofile.site` file:
-
-```{r rprofile}
-drat::addRepo("kjhealy")
-```
-
-With that in place you'll be able to do `install.packages("congress")` or `update.packages("congress")` and have everything work as you'd expect. 
-
-Note that the drat repository only contains data packages that are not on CRAN, so you will never be in danger of grabbing the wrong version of any other package.
-
-
-## Loading the data
-
-The data is stored as a tibble and works best with (but does not strictly require) the [tidyverse](http://tidyverse.org/) libraries.
+Los datos se almacenan como un tibble y funcionan mejor con (pero no requieren estrictamente) las bibliotecas [tidyverse](http://tidyverse.org/).
 
 ```{r libs}
 library(tidyverse)
 ```
 
-Load the data:
+Cargar la base:
 
 ```{r load}
-library(congress)
+library(eleccionesNic)
 ```
 
-To look at the tibble that contains the data, do this:
+Para ver el tibble que contiene los datos, haga esto:
 
 ```{r load-doc}
-congress
+nic_elecciones %>% tibble()
+```
+
+La base de datos continue las siguientes columnas (variables):
+  
+* year
+* departamento
+* municipios
+* jrv: Junto receptora de votos
+* inscritos
+* total_votos
+* total_porcentaje
+* nulos
+* nulos_porcentaje
+* votos_validos
+* validos_porcentaje
+* Partidos políticos
+  * uno: Unión Nacional Opositora
+  * psoc: Partido Social Cristiano
+  * pliun: Partido Liberal Independiente de Unidad Nacional 
+  * prt: Partido Revolucionario de los Trabajadores
+  * fsl: Frente Sandinista de Liberación Nacional
+  * map_ml: Movimiento de Acción Popular Marxista-Leninista
+  * psc: Partido Social Conservatismo
+  * puca: Partido Unionista Centroamericano 
+  * pcdn: Partido Comunista de Nicaragua
+  * mur: Movimiento de Unidad Revolucionaria
+  * al: Alianza Liberal 
+  * pcn: Partido Conservador de Nicaragua   
+  * ccn: Camino Cristiano Nicaragüense
+  * pronal: Proyecto Nacional
+  * mrs: Movimiento Renovador Sandinista
+  * prn: Partido Resistencia Nicaragüense
+  * anc: Acción Nacional Conservadora
+  * u: Alianza Unidad
+  * pli: Partido Liberal Independiente
+  * uno_96: Alianza UNO-96
+  * plc: Partido Liberal Constitucionalista
+  * ac: Alternativa por el Cambio 
+  * aln: Alianza Liberal Nicaragüense
+
+## Caveats
+
+Hay varios caveats en esta base de datos preliminar. 
+
+Primero, para las elecciones de 1990 y 1996, la contabilización de votos se registró como:
+
+1. Inscritos
+2. Total Votos
+3. Nulos
+4. Votos válidos
+
+En el caso de las elecciones de 2001 y 2006, solo se encuentra información para las siguientes variables: 
+
+1. Inscritos
+2. Votos válidos
+
+Esto es debido a la forma en que fueron públicados los resultados por parte del Consejo Supremo Electoral de Nicaragua.
+
+## Comentarios y sugerencias
+
+Para realizar comentarios o sugerencias sobre este paquetes puedes abrir un issue en este repositorio: `https://github.com/rrmaximiliano/eleccionesNic/issues`
+
+## Citar el paquete `eleccionesNic`
+
+Para citar el paquete, use lo siguiente:
+
+```{r citation}
+citation("eleccionesNic")
+```
+
