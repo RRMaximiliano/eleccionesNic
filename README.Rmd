@@ -50,7 +50,7 @@ library(eleccionesNic)
 Para ver el tibble que contiene los datos, haga esto:
 
 ```{r load-doc}
-nic_elecciones %>% tibble()
+nic_elecciones
 ```
 
 La base de datos continue las siguientes columnas (variables):
