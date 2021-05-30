@@ -1,2 +1,7 @@
 ^eleccionesNic\.Rproj$
 ^\.Rproj\.user$
+^\.travis\.yml$
+^\.github$
+^data-raw$
+^README\.Rmd$
+^appveyor\.yml$

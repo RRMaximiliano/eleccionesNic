@@ -1,15 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Elecciones presidenciales en Nicaragua
+# eleccionesNic
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/rrmaximiliano/eleccionesNic/workflows/R-CMD-check/badge.svg)](https://github.com/rrmaximiliano/eleccionesNic/actions)
+[![Travis build
+status](https://travis-ci.com/RRMaximiliano/eleccionesNic.svg?branch=master)](https://travis-ci.com/RRMaximiliano/eleccionesNic)
 <!-- badges: end -->
 
-`eleccionesNic` es una base de datos que contiene información sobre las
+`eleccionesNic` es un paquete que contiene información sobre las
 elecciones presidenciales en Nicaragua desde el año 1990 al 2006. Cada
 fila representa año y departamento.
 
@@ -36,12 +36,12 @@ requieren estrictamente) las bibliotecas
 
 ``` r
 library(tidyverse)
-#> -- Attaching packages ------------------------------------------------------------------------ tidyverse 1.3.0 --
-#> v ggplot2 3.3.0     v purrr   0.3.4
-#> v tibble  3.0.0     v dplyr   0.8.5
-#> v tidyr   1.0.2     v stringr 1.4.0
-#> v readr   1.3.1     v forcats 0.5.0
-#> -- Conflicts --------------------------------------------------------------------------- tidyverse_conflicts() --
+#> -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+#> v ggplot2 3.3.3     v purrr   0.3.4
+#> v tibble  3.1.2     v dplyr   1.0.6
+#> v tidyr   1.1.3     v stringr 1.4.0
+#> v readr   1.4.0     v forcats 0.5.1
+#> -- Conflicts ------------------------------------------ tidyverse_conflicts() --
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 ```
@@ -57,63 +57,63 @@ Para ver el tibble que contiene los datos, haga esto:
 ``` r
 nic_elecciones
 #> # A tibble: 72 x 35
-#>     year departamento municipios   jrv inscritos total_votos total_porcentaje
-#>    <int> <fct>             <int> <int>     <int>       <int>            <dbl>
-#>  1  1990 Nueva Segov~         11   127     49842       44410            0.891
-#>  2  1990 Madriz                9   122     42847       37658            0.879
-#>  3  1990 Esteli                6   212     76441       68155            0.892
-#>  4  1990 Chinandega           13   333    145519      123366            0.848
-#>  5  1990 Leon                 10   374    149131      128948            0.865
-#>  6  1990 Managua               7  1096    462771      408987            0.884
-#>  7  1990 Masaya                9   252    102294       93797            0.917
-#>  8  1990 Carazo                8   190     66627       58341            0.876
-#>  9  1990 Granada               4   203     68792       62014            0.902
-#> 10  1990 Rivas                10   215     62600       56146            0.897
-#> # ... with 62 more rows, and 28 more variables: nulos <int>,
-#> #   nulos_porcentaje <dbl>, votos_validos <int>, validos_porcentaje <dbl>,
-#> #   uno <int>, psoc <int>, pliun <int>, prt <int>, fsln <int>, map_ml <int>,
-#> #   psc <int>, puca <int>, pcdn <int>, mur <int>, al <int>, pcn <int>,
-#> #   ccn <int>, pronal <int>, mrs <int>, prn <int>, anc <int>, u <int>,
-#> #   pli <int>, uno_96 <int>, plc <int>, ac <int>, aln <int>, otros <int>
+#>     year departamento  municipios   jrv inscritos total_votos total_porcentaje
+#>    <dbl> <chr>              <dbl> <dbl>     <dbl>       <dbl>            <dbl>
+#>  1  1990 Nueva Segovia         11   127     49842       44410            0.891
+#>  2  1990 Madriz                 9   122     42847       37658            0.879
+#>  3  1990 Esteli                 6   212     76441       68155            0.892
+#>  4  1990 Chinandega            13   333    145519      123366            0.848
+#>  5  1990 Leon                  10   374    149131      128948            0.865
+#>  6  1990 Managua                7  1096    462771      408987            0.884
+#>  7  1990 Masaya                 9   252    102294       93797            0.917
+#>  8  1990 Carazo                 8   190     66627       58341            0.876
+#>  9  1990 Granada                4   203     68792       62014            0.902
+#> 10  1990 Rivas                 10   215     62600       56146            0.897
+#> # ... with 62 more rows, and 28 more variables: nulos <dbl>,
+#> #   nulos_porcentaje <dbl>, votos_validos <dbl>, validos_porcentaje <dbl>,
+#> #   uno <dbl>, psoc <dbl>, pliun <dbl>, prt <dbl>, fsln <dbl>, map_ml <dbl>,
+#> #   psc <dbl>, puca <dbl>, pcdn <dbl>, mur <dbl>, al <dbl>, pcn <dbl>,
+#> #   ccn <dbl>, pronal <dbl>, mrs <dbl>, prn <dbl>, anc <dbl>, u <dbl>,
+#> #   pli <dbl>, uno_96 <dbl>, plc <dbl>, ac <dbl>, aln <dbl>, otros <dbl>
 ```
 
 La base de datos continue las siguientes columnas (variables):
 
-  - year
-  - departamento
-  - municipios
-  - jrv: Junto receptora de votos
-  - inscritos
-  - total\_votos
-  - total\_porcentaje
-  - nulos
-  - nulos\_porcentaje
-  - votos\_validos
-  - validos\_porcentaje
-  - Partidos políticos
-      - uno: Unión Nacional Opositora
-      - psoc: Partido Social Cristiano
-      - pliun: Partido Liberal Independiente de Unidad Nacional
-      - prt: Partido Revolucionario de los Trabajadores
-      - fsl: Frente Sandinista de Liberación Nacional
-      - map\_ml: Movimiento de Acción Popular Marxista-Leninista
-      - psc: Partido Social Conservatismo
-      - puca: Partido Unionista Centroamericano
-      - pcdn: Partido Comunista de Nicaragua
-      - mur: Movimiento de Unidad Revolucionaria
-      - al: Alianza Liberal
-      - pcn: Partido Conservador de Nicaragua  
-      - ccn: Camino Cristiano Nicaragüense
-      - pronal: Proyecto Nacional
-      - mrs: Movimiento Renovador Sandinista
-      - prn: Partido Resistencia Nicaragüense
-      - anc: Acción Nacional Conservadora
-      - u: Alianza Unidad
-      - pli: Partido Liberal Independiente
-      - uno\_96: Alianza UNO-96
-      - plc: Partido Liberal Constitucionalista
-      - ac: Alternativa por el Cambio
-      - aln: Alianza Liberal Nicaragüense
+-   year
+-   departamento
+-   municipios
+-   jrv: Junto receptora de votos
+-   inscritos
+-   total\_votos
+-   total\_porcentaje
+-   nulos
+-   nulos\_porcentaje
+-   votos\_validos
+-   validos\_porcentaje
+-   Partidos políticos
+    -   uno: Unión Nacional Opositora
+    -   psoc: Partido Social Cristiano
+    -   pliun: Partido Liberal Independiente de Unidad Nacional
+    -   prt: Partido Revolucionario de los Trabajadores
+    -   fsl: Frente Sandinista de Liberación Nacional
+    -   map\_ml: Movimiento de Acción Popular Marxista-Leninista
+    -   psc: Partido Social Conservatismo
+    -   puca: Partido Unionista Centroamericano
+    -   pcdn: Partido Comunista de Nicaragua
+    -   mur: Movimiento de Unidad Revolucionaria
+    -   al: Alianza Liberal
+    -   pcn: Partido Conservador de Nicaragua  
+    -   ccn: Camino Cristiano Nicaragüense
+    -   pronal: Proyecto Nacional
+    -   mrs: Movimiento Renovador Sandinista
+    -   prn: Partido Resistencia Nicaragüense
+    -   anc: Acción Nacional Conservadora
+    -   u: Alianza Unidad
+    -   pli: Partido Liberal Independiente
+    -   uno\_96: Alianza UNO-96
+    -   plc: Partido Liberal Constitucionalista
+    -   ac: Alternativa por el Cambio
+    -   aln: Alianza Liberal Nicaragüense
 
 ## Caveats
 
