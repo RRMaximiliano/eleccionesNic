@@ -92,6 +92,14 @@ La base de datos continue las siguientes columnas (variables):
   * ac: Alternativa por el Cambio 
   * aln: Alianza Liberal Nicaragüense
 
+## Elecciones 2021
+
+```{r elec2021}
+elecciones2021
+elecciones2021 %>% 
+    glimpse()
+```
+
 ## Caveats
 
 Hay varios caveats en esta base de datos preliminar. 
