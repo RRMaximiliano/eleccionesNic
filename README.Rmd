@@ -100,6 +100,14 @@ elecciones2021 %>%
     glimpse()
 ```
 
+## Regionales 2019
+
+```{r reg2019}
+regionales2019
+regionales2019 %>% 
+    glimpse()
+```
+
 ## Caveats
 
 Hay varios caveats en esta base de datos preliminar. 
